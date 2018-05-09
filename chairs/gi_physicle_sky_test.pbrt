@@ -1,0 +1,8 @@
+Transform [0.999847658118 0.00118734415863 0.0174140968826 0  -1.74440676962e-07 0.997684297051 -0.0680150234686 0  -0.0174545282479 0.0680046588942 0.997532308155 0  -122.822335707 -106.639819685 248.100988942 1]
+Camera "perspective" "float fov" [36.8698976458] "float focaldistance" [2000.0] "float lensradius" [0]
+Sampler "halton" "integer pixelsamples" [32]
+Film "image" "string filename" ["gi_physicle_sky_test.exr"] "integer xresolution" [600] "integer yresolution" [900]
+Integrator "path" "integer maxdepth" [5]
+WorldBegin
+	# Default Material
+	Material "uber" "rgb Kd" [0.603827338855 0.603827338855 0.603827338855] "float index" [1.333]

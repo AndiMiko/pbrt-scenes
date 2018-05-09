@@ -1,0 +1,1 @@
+MakeNamedMaterial "radiator" "string type" "uber" "float index" [1.333] "rgb Kd" [1.0 1.0 1.0] "rgb Ks" [0.0 0.0 0.0] "rgb Kr" [0.00116099075821 0.00116099075821 0.00116099075821] "float roughness" [0.0]
