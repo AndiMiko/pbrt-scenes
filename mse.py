@@ -1,4 +1,5 @@
-import pyexr, math, os, glob, sys, xlsxwriter
+import pyexr, math, os, glob, sys, xlsxwriter, re
+from sys import stdout
 
 def calcMSE(curimg, refimg):
     mse = 0;
@@ -21,6 +22,12 @@ worksheet = workbook.add_worksheet()
 worksheet.write(0, 0, refFilePath)
 worksheet.write(0, 1, curFilePath)
 
+startDataLine = 3
+worksheet.write(startDataLine, 0, "Filename")
+worksheet.write(startDataLine, 1, "MSE")
+worksheet.write(startDataLine, 2, "Seconds")
+worksheet.write(startDataLine, 3, "Seconds/MSE")
+
 if (os.path.isdir(curFilePath)):
     for filename in glob.iglob(curFilePath + '*.exr'):
         curFilePaths.append(filename)
@@ -28,9 +35,17 @@ else:
     curFilePaths.append(curFilePath)
 
 
-for index, curFilePath in enumerate(curFilePaths, start=2):
+for index, curFilePath in enumerate(curFilePaths, start=startDataLine+1):
+    print("\rCalculating file %d/%d... [%s]" % (index - startDataLine, len(curFilePaths), curFilePath)),
+    stdout.flush()
     worksheet.write(index, 0, curFilePath)
-    curimg = pyexr.open(curFilePath).get()
-    #mse = calcMSE(curimg, refereceFile.get())
+    mse = calcMSE(pyexr.open(curFilePath).get(), refereceFile.get())
+    worksheet.write(index, 1, mse)
+    time = re.search(r'_t(\d+)_', curFilePath, re.IGNORECASE)
+    if time:
+        seconds = int(time.group(1))
+        worksheet.write(index, 2, seconds)
+        worksheet.write(index, 3, seconds/mse)
+
 
 workbook.close()
