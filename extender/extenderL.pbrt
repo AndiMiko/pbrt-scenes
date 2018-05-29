@@ -1,8 +1,16 @@
 Transform [0.0240015535289 -0.635498074809 -0.771729306391 0  1.73472347598e-18 0.771951689292 -0.635681201074 0  0.999711921219 0.0152573363749 0.0185280397923 0  0.474238724845 0.816453561021 89.0072289835 1]
 Camera "perspective" "float fov" [23.0748992556] "float focaldistance" [200.0] "float lensradius" [0]
-Sampler "halton" "integer pixelsamples" [32]
-Film "image" "string filename" ["images/extender-phot32.exr"] "integer xresolution" [800] "integer yresolution" [450]
-Integrator "path" "integer maxdepth" [5] "string lightsamplestrategy" "photonbased"
+Sampler "halton" "integer pixelsamples" [64]
+Film "image" "string filename" ["images/auto/ext.exr"] "integer xresolution" [800] "integer yresolution" [450]
+Integrator "path" 
+	"integer maxdepth" [1] 
+	"string lightsamplestrategy" "photontree" 
+	"integer photonCount" [1000000] 
+	"float minContributionScale" [0.1]
+	"bool knn" "true"
+	"integer nearestNeighbours" [64]
+	"float photonRadius" [0.1]
+	"bool interpolateCdf" "true"
 WorldBegin
 	# Default Material
 	Material "uber" "rgb Kd" [0.100481509938 0.119280187622 0.139984897558] "float index" [1.333]
