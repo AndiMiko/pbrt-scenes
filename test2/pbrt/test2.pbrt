@@ -1,0 +1,19 @@
+Transform [0.804056776929 0.338223795544 0.488975831308 0  2.77555756156e-17 0.822426639459 -0.568871182877 0  -0.594552520367 0.457404729792 0.661277712984 0  -10.3360275662 -8.53217032799 132.020542136 1]
+Camera "perspective" "float fov" [31.417275658] "float focaldistance" [2000.0] "float lensradius" [0]
+Sampler "halton" "integer pixelsamples" [1]
+Film "image" "string filename" ["images/test2.exr"] "integer xresolution" [1280] "integer yresolution" [720]
+Integrator "path" 
+	"integer maxdepth" [1] 
+	"string lightsamplestrategy" "cdftree" 
+	"integer photonCount" [2000] 
+	"float minContributionScale" [0.1]
+	"bool knn" "true"
+	"integer nearestNeighbours" [64]
+	"float photonRadius" [0.1]
+	"bool interpolateCdf" "true"
+WorldBegin
+	# Default Material
+	Material "uber" "rgb Kd" [0.100481509938 0.119280187622 0.139984897558] "float index" [1.333]
+	Include "test2_materials.pbrt"
+	Include "test2_geometry.pbrt"
+WorldEnd
