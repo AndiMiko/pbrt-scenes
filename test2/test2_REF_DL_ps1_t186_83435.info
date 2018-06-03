@@ -1,0 +1,69 @@
+PBRT Renderinfo file
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Transform [0.804056776929 0.338223795544 0.488975831308 0  2.77555756156e-17 0.822426639459 -0.568871182877 0  -0.594552520367 0.457404729792 0.661277712984 0  -10.3360275662 -8.53217032799 132.020542136 1]
+Camera "perspective" "float fov" [31.417275658] "float focaldistance" [2000.0] "float lensradius" [0]
+Sampler "random" "integer pixelsamples" [1]
+Film "image" "string filename" ["images/test2.exr"] "integer xresolution" [1280] "integer yresolution" [720]
+Integrator "directlighting" 
+	#STD
+	"integer maxdepth" [1] 
+	"string lightsamplestrategy" "uniform"
+	
+	#Photonbased
+	"integer photonCount" [200000] 
+	"float minContributionScale" [0.1]
+	
+	#photontree
+	"bool knn" "true"
+	
+	#knn
+	"integer nearestNeighbours" [64]
+	#radius
+	"float photonRadius" [0.1]
+	
+	#photonvoxel
+	"integer maxVoxels" [64]
+	"bool interpolateCdf" "true"
+	
+	#cdftree
+	"integer cdfCount" [1024]
+	"integer knCdf" [8]
+	
+WorldBegin
+	# Default Material
+	Material "uber" "rgb Kd" [0.100481509938 0.119280187622 0.139984897558] "float index" [1.333]
+	Include "test2_materials.pbrt"
+	Include "test2_geometry.pbrt"
+WorldEnd
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Started preprocess after 0s
+Preprocess finished after 0s
+Rendering finished after 186.155s
+
+
+Statistics:
+  BVH
+    Interior nodes                                                 241769
+    Leaf nodes                                                     241770
+    Primitives per leaf node                        270254 /       241770 (1.12x)
+  Integrator
+    Camera rays traced                                             921600
+  Intersections
+    Regular ray intersection tests                                 921600
+    Shadow ray intersection tests                               940720248
+    Ray-triangle intersection tests              912848081 /   2148421130 (42.49%)
+  Memory
+    BVH tree                                                        18.88 MiB
+    Film pixels                                                     28.13 MiB
+    Primitives                                                      18.56 MiB
+    TransformCache                                                 260.00 kB
+    Triangle meshes                                                 25.39 MiB
+  Scene
+    Lights                                                           1298
+    Materials created                                                   8
+    Shapes created                                                 270254
+    Probes per TransformCache lookup                                1.160 avg [range 1 - 5]
+    TransformCache hits                                  1 /          106 (0.94%)
+    Triangles per triangle mesh                     270254 /           52 (5197.19x)
