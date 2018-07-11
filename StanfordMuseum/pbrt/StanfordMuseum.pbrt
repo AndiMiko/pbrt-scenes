@@ -1,0 +1,39 @@
+Transform [0.812731373882 0.317458754892 0.488556703824 0  0.0 0.838524466643 -0.544863945256 0  -0.582638579145 0.442828022807 0.681495141808 0  -8.96260453066 -11.7693093483 133.269906274 1]
+Camera "perspective" "float fov" [31.417275658] "float focaldistance" [2000.0] "float lensradius" [0]
+Sampler "random" "integer pixelsamples" [2]
+Film "image" "string filename" ["images/StanfordMuseum.exr"] "integer xresolution" [1280] "integer yresolution" [720]
+Integrator "directlighting" 
+	#STD
+	"integer maxdepth" [1] 
+	"string lightsamplestrategy" "spatial"
+	
+	#Photonbased
+	"integer photonCount" [50000000] 
+	"float minContributionScale" [0.1]
+	"string photonsampling" "power"
+	"string interpolation" "adkreg"
+	"float intSmooth" [0.05]
+		
+	#photontree
+	"bool knn" "true"
+	
+	#knn
+	"integer nearestNeighbours" [512]
+	#radius
+	"float photonRadius" [0.1]
+	
+	#photonvoxel
+	"integer maxVoxels" [64]
+	"bool interpolateCdf" "true"
+	
+	#cdftree
+
+	"integer photonThreshold" [20]
+	"integer cdfCount" [150000]
+	"integer knCdf" [16]
+WorldBegin
+	# Default Material
+	Material "uber" "rgb Kd" [0.100481509938 0.119280187622 0.139984897558] "float index" [1.333]
+	Include "StanfordMuseum_materials.pbrt"
+	Include "StanfordMuseum_geometry.pbrt"
+WorldEnd
