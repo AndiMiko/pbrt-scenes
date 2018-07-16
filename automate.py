@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import json, sys, getopt, itertools, re, os, subprocess
+import json, sys, getopt, itertools, re, os, subprocess, pathlib
 
 def permuteConfig(config):
     settingNames = []
@@ -9,6 +9,9 @@ def permuteConfig(config):
         values = []
         for value in config[setting]:
             values.append(value)
+            if (setting == "filename"):
+                path = os.path.dirname(value)
+                pathlib.Path(path).mkdir(parents=True, exist_ok=True)
         settingLists.append(values)
     configurations = list(itertools.product(*settingLists))
     print(str(len(configurations)) + " configuration(s) were created.")
@@ -26,7 +29,7 @@ def render(pbrt, args):
     os.remove(tempFile)
 
 
-with open(args[-1], "r") as pbrtFile:
+with open(sys.argv[-1], "r") as pbrtFile:
     pbrt = pbrtFile.read()
 
 with open("automate.config", "r") as configFile:
