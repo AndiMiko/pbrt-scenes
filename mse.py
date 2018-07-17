@@ -35,8 +35,8 @@ for curFilePath in tarFilePaths:
         curFilePaths.append(curFilePath)
 
     if curFilePaths:
-        workbook = xlsxwriter.Workbook(str(os.path.dirname(curFilePath) + '\\' + os.path.dirname(curFilePath) + '_mse_report.xlsx'))
-        print(str('Writing report to: ' + os.path.dirname(curFilePath) + '\\' + os.path.dirname(curFilePath) + '_mse_report.xlsx'))
+        workbook = xlsxwriter.Workbook(str(os.path.dirname(curFilePath) + '\\' + os.path.basename(os.path.dirname(curFilePath)) + '_mse_report.xlsx'))
+        print(str('Writing report to: ' + os.path.dirname(curFilePath) + '\\' + os.path.basename(os.path.dirname(curFilePath)) + '_mse_report.xlsx'))
         worksheet = workbook.add_worksheet()
         worksheet.write(0, 0, refFilePath)
         worksheet.write(0, 1, curFilePath)
@@ -44,8 +44,8 @@ for curFilePath in tarFilePaths:
         startDataLine = 3
         worksheet.write(startDataLine, 0, "Filename")
         worksheet.write(startDataLine, 1, "MSE")
-        worksheet.write(startDataLine, 2, "Seconds")
         worksheet.write(startDataLine, 2, "RMSE")
+        worksheet.write(startDataLine, 3, "Seconds")
         worksheet.write(startDataLine, 4, "Seconds*MSE")
 
         for index, curFilePath in enumerate(curFilePaths, start=startDataLine+1):
@@ -54,11 +54,11 @@ for curFilePath in tarFilePaths:
             worksheet.write(index, 0, curFilePath)
             mse = calcMSE(pyexr.open(curFilePath).get(), refereceFile.get())
             worksheet.write(index, 1, mse)
-            worksheet.write(index, 3, math.sqrt(mse))
+            worksheet.write(index, 2, math.sqrt(mse))
             time = re.search(r'_t(\d+)_', curFilePath, re.IGNORECASE)
             if time:
                 seconds = int(time.group(1))
-                worksheet.write(index, 2, seconds)
+                worksheet.write(index, 3, seconds)
                 worksheet.write(index, 4, seconds*mse)
 
 
