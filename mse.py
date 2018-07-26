@@ -21,7 +21,7 @@ def calcMSE(curimg, refimg):
                 count += 1
             else:
                 print ("Pixel with inf value, skipping this pixel ...");
-    return math.sqrt(mse / count)
+    return mse / count
 
 
 if (len(sys.argv) != 3):
