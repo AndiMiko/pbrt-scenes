@@ -3,16 +3,25 @@ from sys import stdout
 
 def calcMSE(curimg, refimg):
     mse = 0;
+    count = 0;
     for curX, refX in zip(curimg, refimg):
         for (curPixel, refPixel) in zip(curX, refX):
-            if (curPixel[0] == float('Inf') or curPixel[1] == float('Inf') or curPixel[2] == float('Inf') ):
-                print ("Pixel with inf value, skipping this pixel ...");
-            else:
+            if (curPixel[0] != float('Inf')):
                 mse += pow(curPixel[0] - refPixel[0], 2);
+                count += 1
+            else:
+                print ("Pixel with inf value, skipping this pixel ...");
+            if (curPixel[1] != float('Inf')):
                 mse += pow(curPixel[1] - refPixel[1], 2);
+                count += 1
+            else:
+                print ("Pixel with inf value, skipping this pixel ...");
+            if (curPixel[2] != float('Inf')):
                 mse += pow(curPixel[2] - refPixel[2], 2);
-
-    return math.sqrt(mse)
+                count += 1
+            else:
+                print ("Pixel with inf value, skipping this pixel ...");
+    return math.sqrt(mse / count)
 
 
 if (len(sys.argv) != 3):
